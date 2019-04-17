@@ -1,0 +1,12 @@
+{
+	"scripts": {
+		"start": "node index.js"
+	},
+	"license": "ISC",
+	"engines": {
+		"node": "10.13.0"
+	},
+	"dependencies": {
+		"request": "2.88.0"
+	}
+}

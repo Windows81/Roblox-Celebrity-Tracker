@@ -13,7 +13,7 @@ function serverFromHash(id,hash){
 		var a=[];
 		var m=0;
 		for(var c=0;c<=m;c+=10){
-			var url='https://www.roblox.com/games/getgameinstancesjson?placeId=${id}&startIndex=${c}`;
+			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${id}&startIndex=${c}`;
 			request.get({url:url,headers:{Cookie:'.ROBLOSECURITY='+process.env.roblosecurity}},(e,r,b)=>{
 				var t=JSON.parse(b);
 				m=Math.max(m,t.TotalCollectionSize);

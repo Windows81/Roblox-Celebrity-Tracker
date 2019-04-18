@@ -9,7 +9,6 @@ const places=[
 
 function serverFromHash(id,hash){
 	return new Promise(res=>{
-		console.log(id,hash);
 		var a=[];
 		var m=0;
 		for(var c=0;c<=m;c+=10){
@@ -23,13 +22,14 @@ function serverFromHash(id,hash){
 						return v.Thumbnail.Url==hash;
 					});
 				});
-				console.log(srvr.Guid);
+				if(srvr)res(srvr.Guid);
+				else if(c+10>m)res(null);
 			});
 		}
 	});
 }
 
-function update(){
+async function update(){
 	places.forEach(v=>{
 		request.get('https://www.roblox.com/search/users/presence?userIds='+v[0],(e1,r1,b1)=>{
 			if(e1)return;
@@ -38,7 +38,7 @@ function update(){
 				request.get(thumb,async(e2,r2,b2)=>{
 					console.log(r2.request.uri.href);
 					var redir=r2.request.uri.href.replace('http','https');
-					await serverFromHash(v[1],redir);
+					console.log(await serverFromHash(v[1],redir));
 				});
 			}
 		});
@@ -55,4 +55,4 @@ server.listen(PORT,()=>{
 	console.log(`Server running on ${PORT}/`);
 });
 update();
-setInterval(update,69000);
+setInterval(()=>{request.get('https://asimo3089-tracker.herokuapp.com/')},69000);

@@ -33,7 +33,7 @@ function update(){
 	places.forEach(v=>{
 		request.get('https://www.roblox.com/search/users/presence?userIds='+v[0],(e1,r1,b1)=>{
 			if(e1)return;
-			if(JSON.parse(b1).PlayerPresences.InGame){
+			if(JSON.parse(b1).PlayerPresences[0].InGame){
 				var thumb='http://www.roblox.com/headshot-thumbnail/image?width=48&height=48&Format=Png&userId='+v[1];
 				request.get(thumb,async(e2,r2,b2)=>{
 					console.log(r2.request.uri.href);

@@ -18,7 +18,7 @@ function serverFromHash(id,hash){
 				m=Math.max(m,t.TotalCollectionSize);
 				var srvr=t.Collection.find(v=>{
 					return v.CurrentPlayers.find(v=>
-						{return v.Thumbnail.Url==hash;}
+						{return v.Thumbnail.Url==hash;});
 				});
 				console.log(srvr.Guid);
 			});

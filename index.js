@@ -18,7 +18,6 @@ function serverFromHash(id,hash){
 				m=Math.max(m,t.TotalCollectionSize);
 				var srvr=t.Collection.find(v=>{
 					return v.CurrentPlayers.find(v=>{
-						console.log(v.Thumbnail.Url);
 						return v.Thumbnail.Url==hash;
 					});
 				});
@@ -36,7 +35,6 @@ async function update(){
 			if(JSON.parse(b1).PlayerPresences[0].InGame){
 				var thumb='http://www.roblox.com/headshot-thumbnail/image?width=48&height=48&Format=Png&userId='+v[0];
 				request.get(thumb,async(e2,r2,b2)=>{
-					console.log(r2.request.uri.href);
 					var redir=r2.request.uri.href.replace('http','https');
 					console.log(await serverFromHash(v[1],redir));
 				});
@@ -46,7 +44,6 @@ async function update(){
 }
 
 const server=http.createServer((req,res)=>{
-	update();
 	res.statusCode=200;
 	res.setHeader('Content-Type','text/plain');
 	res.end('The server should be checking.');
@@ -56,3 +53,4 @@ server.listen(PORT,()=>{
 });
 update();
 setInterval(()=>{request.get('https://asimo3089-tracker.herokuapp.com/')},69000);
+setInterval(update,69000);

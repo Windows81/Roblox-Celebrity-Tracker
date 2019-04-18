@@ -37,7 +37,8 @@ function update(){
 				var thumb='http://www.roblox.com/headshot-thumbnail/image?width=48&height=48&Format=Png&userId='+v[0];
 				request.get(thumb,async(e2,r2,b2)=>{
 					console.log(r2.request.uri.href);
-					await serverFromHash(v[1],r2.request.uri.href);
+					var redir=r2.request.uri.href.replace('http','https');
+					await serverFromHash(v[1],redir);
 				});
 			}
 		});

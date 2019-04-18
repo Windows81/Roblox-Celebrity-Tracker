@@ -21,6 +21,7 @@ function serverFromHash(id,hash){
 						return v.Thumbnail.Url==hash;
 					});
 				});
+				console.log(c);
 				if(srvr)res(srvr.Guid);
 				else if(c+10>m)res(null);
 			});

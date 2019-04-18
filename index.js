@@ -9,6 +9,7 @@ const places=[
 
 function serverFromHash(id,hash){
 	return new Promise(res=>{
+		console.log(id,hash);
 		var a=[];
 		var m=0;
 		for(var c=0;c<=m;c+=10){
@@ -17,8 +18,10 @@ function serverFromHash(id,hash){
 				var t=JSON.parse(b);
 				m=Math.max(m,t.TotalCollectionSize);
 				var srvr=t.Collection.find(v=>{
-					return v.CurrentPlayers.find(v=>
-						{return v.Thumbnail.Url==hash;});
+					return v.CurrentPlayers.find(v=>{
+						console.log(v.Thumbnail.Url);
+						return v.Thumbnail.Url==hash;
+					});
 				});
 				console.log(srvr.Guid);
 			});

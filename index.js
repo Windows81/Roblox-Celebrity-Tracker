@@ -13,8 +13,8 @@ function serverFromHash(id,hash){
 		var a=[];
 		var m=0;
 		for(var c=0;c<=m;c+=10){
-			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${id}&startIndex=${c}`;
-			request.get(url,(e,r,b)=>{
+			var url='https://www.roblox.com/games/getgameinstancesjson?placeId=${id}&startIndex=${c}`;
+			request.get({url:url,headers:{Cookie:'.ROBLOSECURITY='+process.env.roblosecurity}},(e,r,b)=>{
 				var t=JSON.parse(b);
 				m=Math.max(m,t.TotalCollectionSize);
 				var srvr=t.Collection.find(v=>{
@@ -34,7 +34,7 @@ function update(){
 		request.get('https://www.roblox.com/search/users/presence?userIds='+v[0],(e1,r1,b1)=>{
 			if(e1)return;
 			if(JSON.parse(b1).PlayerPresences[0].InGame){
-				var thumb='http://www.roblox.com/headshot-thumbnail/image?width=48&height=48&Format=Png&userId='+v[1];
+				var thumb='http://www.roblox.com/headshot-thumbnail/image?width=48&height=48&Format=Png&userId='+v[0];
 				request.get(thumb,async(e2,r2,b2)=>{
 					console.log(r2.request.uri.href);
 					await serverFromHash(v[1],r2.request.uri.href);

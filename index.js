@@ -10,7 +10,7 @@ const places=[
 function serverFromHash(player,place){
 	return new Promise(res=>{
 		request.get('https://www.roblox.com/search/users/presence?userIds='+player,(e1,r1,b1)=>{
-			if(!el&&JSON.parse(b1).PlayerPresences[0].InGame){
+			if(!e1&&JSON.parse(b1).PlayerPresences[0].InGame){
 				var thumb='http://www.roblox.com/headshot-thumbnail/image?width=48&height=48&Format=Png&userId='+player;
 				request.get(thumb,async(e2,r2,b2)=>{
 					var redir=r2.request.uri.href.replace('http','https');

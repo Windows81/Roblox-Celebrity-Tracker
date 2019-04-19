@@ -31,7 +31,7 @@ function serverFromHash(player,place){
 								});
 							});
 							console.log(c);
-							if(srvr)res(srvr.Guid);
+							if(srvr)res(srvr.JoinScript);
 							else if(c+10>m)res(null);
 						});
 					}

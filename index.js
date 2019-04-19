@@ -32,7 +32,7 @@ function serverFromHash(player,place){
 						});
 					}
 				});
-			}else res(null):
+			}else res(null);
 		});
 	});
 }

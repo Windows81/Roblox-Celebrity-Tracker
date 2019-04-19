@@ -39,7 +39,9 @@ function serverFromHash(player,place){
 }
 
 async function update(){
-	places.forEach(v=>{serverFromHash(v[0],v[1]).then(v=>{console.log(v);};});
+	places.forEach(v=>{
+		serverFromHash(v[0],v[1]).then(v=>{console.log(v)});
+	});
 }
 
 const server=http.createServer((req,res)=>{

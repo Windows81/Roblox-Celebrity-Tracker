@@ -4,7 +4,7 @@ const PORT=process.env.PORT||5000;
 
 const places=[
 	[2837719,606849621],
-	//[1630228,2960624866],
+	[1630228,2960624866],
 	[123247,370731277],
 	[306209,2414851778],
 	[1912490,1537690962],
@@ -31,7 +31,7 @@ function serverFromHash(player,place){
 								});
 							});
 							console.log(c);
-							if(srvr)res(srvr.JoinScript);
+							if(srvr)res(`Roblox.GameLauncher.joinGameInstance(${srvr.PlaceId}, "${srvr.Guid}")`;
 							else if(c+10>m)res(null);
 						});
 					}

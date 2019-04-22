@@ -86,18 +86,17 @@ async function getPlayersOnline(players){
 		if(!p[1])willHash.push(p[0]);
 	});
 	
-	return new Promise(async res=>{
-		var a=[];
-		for(var c=0;c<places.length;c++){
-			var place=places[c];
-			var results=await playersInPlace(willHash,place);
-			results.forEach(r=>{
-				var i=willHash.indexOf(r[0]);
-				if(i>-1)willHash.splice(i,1);
-				all[all.findIndex(v=>{return v[0]==r[0]})]=r;
-			});
-		}
-	});
+	var a=[];
+	for(var c=0;c<places.length;c++){
+		var place=places[c];
+		var results=await playersInPlace(willHash,place);
+		results.forEach(r=>{
+			var i=willHash.indexOf(r[0]);
+			if(i>-1)willHash.splice(i,1);
+			all[all.findIndex(v=>{return v[0]==r[0]})]=r;
+		});
+	}
+	return n;
 }
 
 async function update(){

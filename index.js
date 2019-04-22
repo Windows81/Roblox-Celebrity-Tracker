@@ -1,6 +1,7 @@
 const http=require('http');
 const request=require('request');
 const PORT=process.env.PORT||5000;
+var headers={Cookie:'.ROBLOSECURITY='+process.env.roblosecurity};
 
 const players=[
 	452410432,
@@ -45,18 +46,21 @@ function getPlayerHashes(players){
 
 function playersInPlace(players,place){
 	console.log(players.join(' - '),place);
-	var h={Cookie:'.ROBLOSECURITY='+process.env.roblosecurity};
 	return new Promise(async res=>{
 		var a=[];
 		var hashes=await getPlayerHashes(players);
 		var m=await new Promise(res=>{
 			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=0`;
-			request.get({url:url,headers:h},(e,r,b)=>{res(JSON.parse(b).TotalCollectionSize)});
+			request.get({url:url,headers:headers},(e,r,b)=>{res(JSON.parse(b).TotalCollectionSize)});
 		});
 		
+		var count1=0;
+		var count2=0;
 		for(var c=0;c<=m;c+=7){
+			count1++;
 			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=${c}`;
-			request.get({url:url,headers:h},(e,r,b)=>{
+			request.get({url:url,headers:headers},(e,r,b)=>{
+				count2++;
 				var t=JSON.parse(b);
 				m=Math.max(t.TotalCollectionSize,m);
 				t.Collection.forEach(coll=>{
@@ -65,15 +69,15 @@ function playersInPlace(players,place){
 							var hash=hashes[i];
 							if(srvPl.Thumbnail.Url==hash[1]){
 								var v=`Roblox.GameLauncher.joinGameInstance(${place},"${coll.Guid}")`;
-								console.log(v);
 								a.push([hash[0],v]);
 								hashes.splice(i,1);
+								console.log(v,hashes.length);
 							}
 							if(hashes.length==0)res(a);
 						}
 					});
 				});
-				if(c+7>m)res(a);
+				if(count1==count2&&count1>0)res(a);
 			});
 		}
 	});
@@ -83,7 +87,8 @@ async function getPlayersOnline(players){
 	var all=await new Promise(res=>{
 		var a=[];
 		players.forEach(p=>{
-			request.get('https://www.roblox.com/search/users/presence?userIds='+p,(e,r,b)=>{
+			var url='https://www.roblox.com/search/users/presence?userIds='+p;
+			request.get({url:url,headers:headers},(e,r,b)=>{
 				if(!e){
 					var pp=JSON.parse(b).PlayerPresences[0];
 					a.push([p,pp.PlaceId>0?pp.FollowToGameScript:pp.InGame?undefined:null]);
@@ -94,7 +99,6 @@ async function getPlayersOnline(players){
 	});
 	var willHash=[];
 	all.forEach(p=>{
-		console.log(p[0],p[1]);
 		if(p[1]===undefined)willHash.push(p[0]);
 	});
 	

@@ -27,7 +27,7 @@ function getPlayerHashes(players){
 	return new Promise(res=>{
 		var a=[];players.forEach(p=>{
 			if(hashCache[p]!=null){
-				ret.push([p,hashCache[p]]);
+				a.push([p,hashCache[p]]);
 				if(a.length==players.length)res(a);
 			}else{
 				var thumb='http://www.roblox.com/headshot-thumbnail/image?width=48&height=48&Format=Png&userId='+p;

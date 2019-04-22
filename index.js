@@ -86,6 +86,7 @@ async function getPlayersOnline(players){
 	});
 	var willHash=[];
 	all.forEach(p=>{
+		console.log(p[0],p[1]);
 		if(!p[1])willHash.push(p[0]);
 	});
 	

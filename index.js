@@ -3,7 +3,7 @@ const request=require('request');
 const PORT=process.env.PORT||5000;
 
 const players=[
-	527730528,
+	452410432,
 	2837719,
 	1630228,
 	123247,

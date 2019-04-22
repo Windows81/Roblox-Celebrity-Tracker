@@ -46,7 +46,7 @@ function playersInPlace(players,place){
 						for(var i=hashes.length-1;i>=0;i--){
 							var hash=hashes[i];
 							if(srvPl.Thumbnail.Url==hash[1]){
-								a.push([hash[0],`Roblox.GameLauncher.joinGameInstance(${place},"${coll.Guid}")`;
+								a.push([hash[0],`Roblox.GameLauncher.joinGameInstance(${place},"${coll.Guid}")`]);
 								hashes.splice(i,1);
 							}
 							if(hashes.length==0)res(a);

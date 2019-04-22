@@ -59,7 +59,6 @@ function playersInPlace(players,place){
 			request.get({url:url,headers:h},(e,r,b)=>{
 				var t=JSON.parse(b);
 				m=Math.max(t.TotalCollectionSize,m);
-				console.log(place,m);
 				t.Collection.forEach(coll=>{
 					coll.CurrentPlayers.forEach(srvPl=>{
 						for(var i=hashes.length-1;i>=0;i--){
@@ -74,9 +73,9 @@ function playersInPlace(players,place){
 						}
 					});
 				});
+				if(c+7>m)res(a);
 			});
 		}
-		res(a);
 	});
 }
 

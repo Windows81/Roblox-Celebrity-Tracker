@@ -102,7 +102,7 @@ async function getPlayersOnline(players){
 async function update(){
 	var url='https://discordapp.com/api/webhooks/569744093115318274'
 		+'/wM4ULEq-De_E_xDWzmwEdvcHjCGqtg9gVheZdAbiPxRkrFFAXQGsU-voL3JrGfNZrVSE';
-	getPlayersOnline().then(a=>{
+	getPlayersOnline(players).then(a=>{
 		a.forEach(v=>{
 			request.post({url:url,json:{content:'``'+v.join(' - ')+'``'}});
 		});

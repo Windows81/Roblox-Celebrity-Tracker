@@ -3,7 +3,7 @@ const request=require('request');
 const PORT=process.env.PORT||5000;
 
 const players=[
-	22314657,
+	527730528,
 	2837719,
 	1630228,
 	123247,
@@ -13,6 +13,7 @@ const players=[
 ];
 
 const places=[
+	527730528,
 	69184822,
 	606849621,
 	2960624866,
@@ -111,7 +112,7 @@ async function update(){
 		+'/wM4ULEq-De_E_xDWzmwEdvcHjCGqtg9gVheZdAbiPxRkrFFAXQGsU-voL3JrGfNZrVSE';
 	getPlayersOnline(players).then(a=>{
 		a.forEach(v=>{
-			request.post({url:url,json:{content:'``'+v.join(' - ')+'``'}});
+			if(v[1])request.post({url:url,json:{content:'``'+v.join(' - ')+'``'}});
 		});
 	});
 }

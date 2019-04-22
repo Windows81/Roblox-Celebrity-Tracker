@@ -31,7 +31,7 @@ function serverFromHash(player,place){
 								});
 							});
 							console.log(c);
-							if(srvr)res(`Roblox.GameLauncher.joinGameInstance(${srvr.PlaceId}, "${srvr.Guid}")`;
+							if(srvr)res(`Roblox.GameLauncher.joinGameInstance(${srvr.PlaceId}, "${srvr.Guid}")`);
 							else if(c+10>m)res(null);
 						});
 					}

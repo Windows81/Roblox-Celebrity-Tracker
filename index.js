@@ -32,6 +32,7 @@ function getPlayerHashes(players){
 				request.get(thumb,(e,r,b)=>{
 					var redir=r.request.uri.href.replace('http','https');
 					a.push([p,hashCache[p]=redir]);
+					console.log(redir);
 					if(a.length==players.length)res(a);
 				});
 			}
@@ -50,6 +51,7 @@ function playersInPlace(players,place){
 			request.get({url:url,headers:{Cookie:'.ROBLOSECURITY='+process.env.roblosecurity}},(e,r,b)=>{
 				var t=JSON.parse(b);
 				m=Math.max(m,t.TotalCollectionSize);
+				console.log(place,m);
 				t.Collection.forEach(coll=>{
 					coll.CurrentPlayers.forEach(srvPl=>{
 						for(var i=hashes.length-1;i>=0;i--){
@@ -58,6 +60,7 @@ function playersInPlace(players,place){
 								a.push([hash[0],`Roblox.GameLauncher.joinGameInstance(${place},"${coll.Guid}")`]);
 								hashes.splice(i,1);
 							}
+							console.log(hash[0]);
 							if(hashes.length==0)res(a);
 						}
 					});

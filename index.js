@@ -4,7 +4,7 @@ const PORT=process.env.PORT||5000;
 
 const places=[
 	[2837719,606849621],
-	[1630228,2960624866],
+	//[1630228,2960624866],
 	[123247,370731277],
 	[306209,2414851778],
 	[1912490,1537690962],
@@ -20,7 +20,7 @@ function serverFromHash(player,place){
 					var redir=r2.request.uri.href.replace('http','https');
 					var a=[];
 					var m=0;
-					for(var c=0;c<=m;c+=10){
+					for(var c=0;c<=m;c+=7){
 						var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=${c}`;
 						request.get({url:url,headers:{Cookie:'.ROBLOSECURITY='+process.env.roblosecurity}},(e3,r3,b3)=>{
 							var t=JSON.parse(b3);

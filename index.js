@@ -79,8 +79,8 @@ async function getPlayersOnline(players){
 		players.forEach(p=>{
 			request.get('https://www.roblox.com/search/users/presence?userIds='+p,(e,r,b)=>{
 				if(!e){
-					var p=JSON.parse(b).PlayerPresences[0];
-					a.push([p,p.PlaceId>0?p.FollowToGameScript:p.InGame?undefined:null]);
+					var pp=JSON.parse(b).PlayerPresences[0];
+					a.push([p,pp.PlaceId>0?pp.FollowToGameScript:pp.InGame?undefined:null]);
 					if(a.length==players.length)res(a);
 				}
 			});

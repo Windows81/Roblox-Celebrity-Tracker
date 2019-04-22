@@ -80,7 +80,7 @@ async function getPlayersOnline(players){
 			request.get('https://www.roblox.com/search/users/presence?userIds='+p,(e,r,b)=>{
 				if(!e){
 					var p=JSON.parse(b).PlayerPresences[0];
-					if(p.InGame)a.push([p,p.PlaceId>0?p.FollowToGameScript:null]);
+					a.push([p,p.PlaceId>0?p.FollowToGameScript:p.InGame?undefined:null]);
 					if(a.length==players.length)res(a);
 				}
 			});
@@ -89,7 +89,7 @@ async function getPlayersOnline(players){
 	var willHash=[];
 	all.forEach(p=>{
 		console.log(p[0],p[1]);
-		if(!p[1])willHash.push(p[0]);
+		if(p[1]===undefined)willHash.push(p[0]);
 	});
 	
 	var a=[];
@@ -102,7 +102,7 @@ async function getPlayersOnline(players){
 			all[all.findIndex(v=>{return v[0]==r[0]})]=r;
 		});
 	}
-	return n;
+	return all;
 }
 
 async function update(){

@@ -52,7 +52,7 @@ function playersInPlace(players,place){
 		var m=await new Promise(res=>{
 			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=0`;
 			request.get({url:url,headers:h},(e,r,b)=>{res(JSON.parse(b).TotalCollectionSize)});
-		};
+		});
 		
 		for(var c=0;c<=m;c+=7){
 			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=${c}`;

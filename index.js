@@ -44,7 +44,7 @@ function serverFromHash(player,place){
 async function update(){
 	places.forEach(v=>{
 		serverFromHash(v[0],v[1]).then(v=>{
-			var url='https://discordapp.com/api/webhooks/568574341764087992/p6VH8vQ-PbEoDmsm1eD6UoXagZniSX7XgO91gkXbDT_4CBGq61qoVV3risqCQkVV2nsV';
+			var url='https://discordapp.com/api/webhooks/568574341764087992'+'/p6VH8vQ-PbEoDmsm1eD6UoXagZniSX7XgO91gkXbDT_4CBGq61qoVV3risqCQkVV2nsV';
 			if(v)request.post({url:url,json:{content:'``'+v+'``'}});
 		});
 	});

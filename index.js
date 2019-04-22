@@ -44,16 +44,17 @@ function getPlayerHashes(players){
 }
 
 function playersInPlace(players,place){
+	console.log(players.join(' - '),place);
 	return new Promise(async res=>{
 		var a=[];
-		var m=0;
+		var m=1<<30;
 		var hashes=await getPlayerHashes(players);
 		
 		for(var c=0;c<=m;c+=7){
 			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=${c}`;
 			request.get({url:url,headers:{Cookie:'.ROBLOSECURITY='+process.env.roblosecurity}},(e,r,b)=>{
 				var t=JSON.parse(b);
-				m=Math.max(m,t.TotalCollectionSize);
+				m=t.TotalCollectionSize+10;
 				console.log(place,m);
 				t.Collection.forEach(coll=>{
 					coll.CurrentPlayers.forEach(srvPl=>{

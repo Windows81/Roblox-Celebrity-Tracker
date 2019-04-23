@@ -77,6 +77,7 @@ function playersInPlace(players,place){
 						}
 					});
 				});
+				console.log('count',count1,count2)
 				if(count1==count2&&count1>0)res(a);
 			});
 		}

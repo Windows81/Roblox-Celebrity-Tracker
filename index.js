@@ -100,6 +100,7 @@ async function getPlayersOnline(players){
 	});
 	var willHash=[];
 	all.forEach(p=>{
+		console.log(p.join(' '));
 		if(p[1]===undefined)willHash.push(p[0]);
 	});
 	

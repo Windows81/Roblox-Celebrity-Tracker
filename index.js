@@ -4,7 +4,6 @@ const PORT=process.env.PORT||5000;
 var headers={Cookie:'.ROBLOSECURITY='+process.env.roblosecurity};
 
 const players=[
-	452410432,
 	2837719,
 	1630228,
 	123247,
@@ -76,7 +75,6 @@ function playersInPlace(players,place){
 						}
 					});
 				});
-				console.log('count',count1,count2)
 				if(count1==count2&&count1>0)res(a);
 			});
 		}

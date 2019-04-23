@@ -44,7 +44,6 @@ function getPlayerHashes(players){
 }
 
 function playersInPlace(players,place){
-	console.log(players.join(' - '),place);
 	return new Promise(async res=>{
 		var a=[];
 		var hashes=await getPlayerHashes(players);
@@ -96,7 +95,6 @@ async function getPlayersOnline(players,places){
 	});
 	var filtered=[];
 	all.forEach(p=>{
-		console.log(p.join(' '));
 		if(p[1]!==null)filtered.push(p[0]);
 	});
 	
@@ -107,6 +105,7 @@ async function getPlayersOnline(players,places){
 			places.push(id);
 	});
 	
+	var ret=[];
 	for(var c=0;c<places.length;c++){
 		var place=places[c];
 		var hashable=filtered.slice(0);
@@ -114,10 +113,10 @@ async function getPlayersOnline(players,places){
 		results.forEach(r=>{
 			var i=filtered.indexOf(r[0]);
 			if(i>-1)filtered.splice(i,1);
-			all[all.findIndex(v=>{return v[0]==r[0]})]=r;
+			ret.push(r);
 		});
 	}
-	return all;
+	return ret;
 }
 
 async function update(){
@@ -125,7 +124,7 @@ async function update(){
 		+'/wM4ULEq-De_E_xDWzmwEdvcHjCGqtg9gVheZdAbiPxRkrFFAXQGsU-voL3JrGfNZrVSE';
 	getPlayersOnline(players,places).then(a=>{
 		a.forEach(v=>{
-			if(!v[1])return;
+			if(!v[2])return;
 			var content=`\`\`\`js\n// User ID: ${v[0]}\nRoblox.GameLauncher.joinGameInstance(${v[1]},"${v[2]}")\`\`\``;
 			request.post({url:url,json:{content:content}});
 		});

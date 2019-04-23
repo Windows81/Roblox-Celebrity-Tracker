@@ -83,7 +83,7 @@ function playersInPlace(players,place){
 	});
 }
 
-async function getPlayersOnline(players){
+async function getPlayersOnline(players,places){
 	var all=await new Promise(res=>{
 		var a=[];
 		players.forEach(p=>{
@@ -103,7 +103,7 @@ async function getPlayersOnline(players){
 		if(p[1]!==null)filtered.push(p[0]);
 	});
 	
-	var places=places.slice(0);
+	places=places.slice(0);
 	all.forEach(v=>{
 		var id=parseInt(v[1]);
 		if(!places.includes(id)&&id)
@@ -126,7 +126,7 @@ async function getPlayersOnline(players){
 async function update(){
 	var url='https://discordapp.com/api/webhooks/569744093115318274'
 		+'/wM4ULEq-De_E_xDWzmwEdvcHjCGqtg9gVheZdAbiPxRkrFFAXQGsU-voL3JrGfNZrVSE';
-	getPlayersOnline(players).then(a=>{
+	getPlayersOnline(players,places).then(a=>{
 		a.forEach(v=>{
 			if(v[1])request.post({url:url,json:{content:'``'+v.join(' - ')+'``'}});
 		});

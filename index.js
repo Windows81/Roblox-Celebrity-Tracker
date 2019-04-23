@@ -71,7 +71,6 @@ function playersInPlace(players,place){
 								var v=`Roblox.GameLauncher.joinGameInstance(${place},"${coll.Guid}")`;
 								a.push([hash[0],v]);
 								hashes.splice(i,1);
-								console.log(v,hashes.length);
 							}
 							if(hashes.length==0)res(a);
 						}
@@ -92,25 +91,32 @@ async function getPlayersOnline(players){
 			request.get({url:url,headers:headers},(e,r,b)=>{
 				if(!e){
 					var pp=JSON.parse(b).PlayerPresences[0];
-					a.push([p,pp.PlaceId>0?pp.FollowToGameScript:pp.InGame?undefined:null]);
+					a.push([p,pp.PlaceId>0?pp.PlaceId:pp.InGame?undefined:null]);
 					if(a.length==players.length)res(a);
 				}
 			});
 		});
 	});
-	var willHash=[];
+	var filtered=[];
 	all.forEach(p=>{
 		console.log(p.join(' '));
-		if(p[1]===undefined)willHash.push(p[0]);
+		if(p[1]!==null)filtered.push(p[0]);
 	});
 	
-	var a=[];
+	var places=places.slice(0);
+	all.forEach(v=>{
+		var id=parseInt(v[1]);
+		if(!places.includes(id)&&id)
+			places.push(id);
+	});
+	
 	for(var c=0;c<places.length;c++){
 		var place=places[c];
-		var results=await playersInPlace(willHash,place);
+		var hashable=filtered.slice(0);
+		var results=await playersInPlace(filtered,place);
 		results.forEach(r=>{
-			var i=willHash.indexOf(r[0]);
-			if(i>-1)willHash.splice(i,1);
+			var i=filtered.indexOf(r[0]);
+			if(i>-1)filtered.splice(i,1);
 			all[all.findIndex(v=>{return v[0]==r[0]})]=r;
 		});
 	}

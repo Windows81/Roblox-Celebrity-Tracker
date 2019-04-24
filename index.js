@@ -115,7 +115,7 @@ async function getPlayersOnline(players,places){
 				var i=filtered.indexOf(t[0]);
 				if(i>-1)filtered.splice(i,1);
 				request.get(`https://api.roblox.com/users/${t[0]}`,(e,r,b)=>{
-					r.unshift(JSON.parse(b).Username);a.push(t);
+					t.unshift(JSON.parse(b).Username);a.push(t);
 					if(a.length==results.length)res(a);
 				});
 			});

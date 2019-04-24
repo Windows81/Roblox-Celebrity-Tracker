@@ -79,7 +79,7 @@ function playersInPlace(players,place){
 	});
 }
 
-function getPlayersOnline(players,places){
+async function getPlayersOnline(players,places){
 	var all=await new Promise(res=>{
 		var a=[];
 		players.forEach(p=>{
@@ -105,7 +105,7 @@ function getPlayersOnline(players,places){
 			places.push(id);
 	});
 	
-	return new Promise(res=>{
+	return await new Promise(res=>{
 		var a=[];
 		for(var c=0;c<places.length;c++){
 			var place=places[c];
@@ -129,7 +129,7 @@ async function update(){
 	getPlayersOnline(players,places).then(a=>{
 		a.forEach(v=>{
 			if(!v[2])return;
-			var content=`\`\`\`js\n// User ID: ${v[0]}\nRoblox.GameLauncher.joinGameInstance(${v[1]},"${v[2]}")\`\`\``;
+			var content=`\`\`\`js\n// User: ${v[1]} - ${v[2]}\nRoblox.GameLauncher.joinGameInstance(${v[2]},"${v[3]}")\`\`\``;
 			request.post({url:url,json:{content:content}});
 		});
 	});

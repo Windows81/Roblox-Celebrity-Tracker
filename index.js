@@ -129,7 +129,7 @@ async function update(){
 	getPlayersOnline(players,places).then(a=>{
 		a.forEach(v=>{
 			if(!v[2])return;
-			var content=`\`\`\`js\n// User: ${v[1]} - ${v[2]}\nRoblox.GameLauncher.joinGameInstance(${v[2]},"${v[3]}")\`\`\``;
+			var content=`\`\`\`js\n// User: ${v[0]} - ${v[1]}\nRoblox.GameLauncher.joinGameInstance(${v[2]},"${v[3]}")\`\`\``;
 			request.post({url:url,json:{content:content}});
 		});
 	});

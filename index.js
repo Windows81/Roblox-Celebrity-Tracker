@@ -5,7 +5,7 @@ var headers={Cookie:'.ROBLOSECURITY='+process.env.roblosecurity};
 
 const players=[
 	2837719,
-	1630228,
+	//1630228,
 	123247,
 	306209,
 	1912490,
@@ -79,7 +79,7 @@ function playersInPlace(players,place){
 	});
 }
 
-async function getPlayersOnline(players,places){
+function getPlayersOnline(players,places){
 	var all=await new Promise(res=>{
 		var a=[];
 		players.forEach(p=>{
@@ -105,18 +105,22 @@ async function getPlayersOnline(players,places){
 			places.push(id);
 	});
 	
-	var ret=[];
-	for(var c=0;c<places.length;c++){
-		var place=places[c];
-		var hashable=filtered.slice(0);
-		var results=await playersInPlace(filtered,place);
-		results.forEach(r=>{
-			var i=filtered.indexOf(r[0]);
-			if(i>-1)filtered.splice(i,1);
-			ret.push(r);
-		});
-	}
-	return ret;
+	return new Promise(res=>{
+		var a=[];
+		for(var c=0;c<places.length;c++){
+			var place=places[c];
+			var hashable=filtered.slice(0);
+			var results=await playersInPlace(filtered,place);
+			results.forEach(t=>{
+				var i=filtered.indexOf(t[0]);
+				if(i>-1)filtered.splice(i,1);
+				request.get(`https://api.roblox.com/users/${t[0]}`,(e,r,b)=>{
+					r.unshift(JSON.parse(b).Username);a.push(t);
+					if(a.length==results.length)res(a);
+				});
+			});
+		}
+	});
 }
 
 async function update(){

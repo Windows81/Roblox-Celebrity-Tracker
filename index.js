@@ -105,7 +105,7 @@ async function getPlayersOnline(players,places){
 			places.push(id);
 	});
 	
-	return await new Promise(res=>{
+	return await new Promise(async res=>{
 		var a=[];
 		for(var c=0;c<places.length;c++){
 			var place=places[c];

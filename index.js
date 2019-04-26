@@ -4,17 +4,22 @@ const PORT=process.env.PORT||5000;
 var headers={Cookie:'.ROBLOSECURITY='+process.env.roblosecurity};
 
 const players=[
-	2837719,
+	2837719,//asimo3089
 	//1630228,
-	123247,
-	306209,
-	1912490,
-	59967,
+	123247,//alexnewtron
+	306209,//vCaffy
+	1912490,//Onett
+	339310190,//Flamingo
+	59967,//taymaster
 ];
 
 const places=[
 	527730528,
 	69184822,
+	920587237,
+	292439477,
+	735030788,
+	2512643572,
 	606849621,
 	2960624866,
 	370731277,

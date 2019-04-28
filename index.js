@@ -40,7 +40,6 @@ function getPlayerHashes(players){
 				request.get(thumb,(e,r,b)=>{
 					var redir=r.request.uri.href.replace('http','https');
 					a.push([p,hashCache[p]=redir]);
-					console.log(redir);
 					if(a.length==players.length)res(a);
 				});
 			}
@@ -72,6 +71,7 @@ function playersInPlace(players,place){
 							var hash=hashes[i];
 							if(srvPl.Thumbnail.Url==hash[1]){
 								a.push([hash[0],place,coll.Guid]);
+								print(hash[0],place,coll.Guid);
 								hashes.splice(i,1);
 							}
 							if(hashes.length==0)res(a);

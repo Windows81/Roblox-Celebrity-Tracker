@@ -150,5 +150,9 @@ server.listen(PORT,()=>{
 	console.log(`Server running on ${PORT}/`);
 });
 update();
-setInterval(()=>{request.get('https://asimo3089-tracker.herokuapp.com/')},69000);
-setInterval(update,69000);
+setInterval(()=>{
+	var url1='https://asimo3089.herokuapp.com/';
+	var url2='https://asimo3089-tracker.herokuapp.com/';
+	request.get(url1);//new Date().getHours()%2==0?url1:url2);
+	update();
+},69000);

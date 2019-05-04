@@ -91,10 +91,11 @@ async function getPlayersOnline(players,places){
 			var url='https://www.roblox.com/search/users/presence?userIds='+p;
 			request.get({url:url,headers:headers},(e,r,b)=>{
 				if(!e){
+					console.log(p);
 					var pp=JSON.parse(b).PlayerPresences[0];
 					a.push([p,pp.PlaceId>0?pp.PlaceId:pp.InGame?undefined:null]);
 					if(a.length==players.length)res(a);
-				}
+				}else console.log(e);
 			});
 		});
 	});
@@ -153,6 +154,6 @@ update();
 setInterval(()=>{
 	var url1='https://asimo3089.herokuapp.com/';
 	var url2='https://asimo3089-tracker.herokuapp.com/';
-	request.get(url1);//new Date().getHours()%2==0?url1:url2);
+	request.get(new Date().getDate()>15?url1:url2);
 	update();
 },69000);

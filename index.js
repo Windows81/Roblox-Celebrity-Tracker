@@ -92,10 +92,11 @@ async function getPlayersOnline(players,places){
 			request.get({url:url,headers:headers},(e,r,b)=>{
 				if(!e){
 					var pp=JSON.parse(b).PlayerPresences[0];
+					console.log(pp);
 					a.push([p,pp.PlaceId>0?pp.PlaceId:pp.InGame?undefined:null]);
 					console.log(a.length,players.length);
 					if(a.length==players.length)res(a);
-				}else console.log(e);
+				}
 			});
 		});
 	});

@@ -118,6 +118,7 @@ async function getPlayersOnline(players,places){
 			var hashable=filtered.slice(0);
 			var results=await playersInPlace(filtered,place);
 			results.forEach(t=>{
+				console.log(t[0]);
 				var i=filtered.indexOf(t[0]);
 				if(i>-1)filtered.splice(i,1);
 				request.get(`https://api.roblox.com/users/${t[0]}`,(e,r,b)=>{
@@ -133,7 +134,6 @@ async function update(){
 	var url='https://discordapp.com/api/webhooks/569744093115318274'
 		+'/wM4ULEq-De_E_xDWzmwEdvcHjCGqtg9gVheZdAbiPxRkrFFAXQGsU-voL3JrGfNZrVSE';
 	getPlayersOnline(players,places).then(a=>{
-		console.log('Players online:',a.length);
 		a.forEach(v=>{
 			if(!v[2])return;
 			var content=`\`\`\`js\n// User: ${v[0]} - ${v[1]}\nRoblox.GameLauncher.joinGameInstance(${v[2]},"${v[3]}")\`\`\``;

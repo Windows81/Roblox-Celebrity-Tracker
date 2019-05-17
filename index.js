@@ -92,7 +92,6 @@ async function getPlayersOnline(players,places){
 			request.get({url:url,headers:headers},(e,r,b)=>{
 				if(!e){
 					var pp=JSON.parse(b).PlayerPresences[0];
-					console.log(pp);
 					a.push([p,pp.PlaceId>0?pp.PlaceId:pp.InGame?undefined:null]);
 					console.log(a.length,players.length);
 					if(a.length==players.length)res(a);
@@ -100,7 +99,7 @@ async function getPlayersOnline(players,places){
 			});
 		});
 	});
-	console.log(all)
+	console.log(all);
 	var filtered=[];
 	all.forEach(p=>{
 		if(p[1]!==null)filtered.push(p[0]);

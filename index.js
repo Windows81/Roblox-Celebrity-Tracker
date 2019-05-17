@@ -91,7 +91,7 @@ async function getPlayersOnline(players,places){
 			var url='https://www.roblox.com/search/users/presence?userIds='+p;
 			request.get({url:url,headers:headers},(e,r,b)=>{
 				if(!e){
-					console.log(p);
+					console.log(a.length,players.length);
 					var pp=JSON.parse(b).PlayerPresences[0];
 					a.push([p,pp.PlaceId>0?pp.PlaceId:pp.InGame?undefined:null]);
 					if(a.length==players.length)res(a);

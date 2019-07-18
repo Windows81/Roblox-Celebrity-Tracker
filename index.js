@@ -53,7 +53,7 @@ function playersInPlace(players,place){
 		var hashes=await getPlayerHashes(players);
 		var m=await new Promise(res=>{
 			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=0`;
-			request.get({url:url,headers:headers},(e,r,b)=>{res(console.log(b);JSON.parse(b).TotalCollectionSize)});
+			request.get({url:url,headers:headers},(e,r,b)=>{console.log(b);res(JSON.parse(b).TotalCollectionSize)});
 		});
 		
 		console.log(m);
@@ -109,14 +109,14 @@ async function getPlayersOnline(players,places){
 	all.forEach(v=>{
 		var id=parseInt(v[1]);
 		if(!places.includes(id)&&id)
-			places.push(id);
+			places.unshift(id);
 	});
 	
 	return await new Promise(async res=>{
 		var a=[];
 		for(var c=0;c<places.length;c++){
 			var place=places[c];
-			console.log(c,place);
+			console.log(place);
 			var hashable=filtered.slice(0);
 			var results=await playersInPlace(filtered,place);
 			results.forEach(t=>{

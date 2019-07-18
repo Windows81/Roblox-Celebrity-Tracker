@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Windows81/roblox-celebrity-tracker#readme",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "request": "^2.88.0"
   }
 }

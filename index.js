@@ -1,32 +1,12 @@
-const http=require('http');
+//const http=require('http');
+const fs=require('fs');
 const request=require('request');
+require('dotenv').config();
 const PORT=process.env.PORT||5000;
 var headers={Cookie:'.ROBLOSECURITY='+process.env.roblosecurity};
 
-const players=[
-	2837719,//asimo3089
-	1630228,
-	123247,//alexnewtron
-	306209,//vCaffy
-	1912490,//Onett
-	339310190,//Flamingo
-	59967,//taymaster
-];
-
-const places=[
-	527730528,
-	69184822,
-	920587237,
-	292439477,
-	735030788,
-	2512643572,
-	606849621,
-	2960624866,
-	370731277,
-	2414851778,
-	1537690962,
-	1224212277,
-];
+const players=process.env.Players.split(' ');
+const places=process.env.Places.split(' ');
 
 var hashCache=[];
 function getPlayerHashes(players){
@@ -39,12 +19,13 @@ function getPlayerHashes(players){
 				var thumb='http://www.roblox.com/headshot-thumbnail/image?width=48&height=48&Format=Png&userId='+p;
 				request.get(thumb,(e,r,b)=>{
 					var redir=r.request.uri.href/*.replace('http','https')*/;
-					console.log(redir);
+					console.log(p,redir);
 					a.push([p,hashCache[p]=redir]);
 					if(a.length==players.length)res(a);
 				});
 			}
 		});
+		res([]);
 	});
 }
 
@@ -52,9 +33,12 @@ function playersInPlace(players,place){
 	return new Promise(async res=>{
 		var a=[];
 		var hashes=await getPlayerHashes(players);
+		if(hashes.length<1)res(a);
+
 		var m=await new Promise(res=>{
 			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=0`;
-			request.get({url:url,headers:headers},(e,r,b)=>{res(JSON.parse(b).TotalCollectionSize)});
+			request.get({url:url,headers:headers},(e,r,b)=>{
+				res(JSON.parse(b).TotalCollectionSize)});
 		});
 		
 		var count1=0;
@@ -62,24 +46,28 @@ function playersInPlace(players,place){
 		for(var c=0;c<=m;c+=7){
 			count1++;
 			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=${c}`;
-			request.get({url:url,headers:headers},(e,r,b)=>{
-				count2++;
-				var t=JSON.parse(b);
-				m=Math.max(t.TotalCollectionSize,m);
-				t.Collection.forEach(coll=>{
-					coll.CurrentPlayers.forEach(srvPl=>{
-						for(var i=hashes.length-1;i>=0;i--){
-							var hash=hashes[i];
-							if(srvPl.Thumbnail.Url==hash[1]){
-								a.push([hash[0],place,coll.Guid]);
-								hashes.splice(i,1);
+			var rec=()=>{
+				request.get({url:url,headers:headers},(e,r,b)=>{
+					if(e)return rec();
+					count2++;
+					var t=JSON.parse(b);
+					m=Math.max(t.TotalCollectionSize,m);
+					t.Collection.forEach(coll=>{
+						coll.CurrentPlayers.forEach(srvPl=>{
+							for(var i=hashes.length-1;i>=0;i--){
+								var hash=hashes[i];
+								if(srvPl.Thumbnail.Url==hash[1]){
+									a.push([hash[0],place,coll.Guid]);
+									hashes.splice(i,1);
+								}
+								if(hashes.length==0)res(a);
 							}
-							if(hashes.length==0)res(a);
-						}
+						});
 					});
+					if(count1==count2&&count1>0)res(a);
 				});
-				if(count1==count2&&count1>0)res(a);
-			});
+			};
+			rec();
 		}
 	});
 }
@@ -151,7 +139,6 @@ const server=http.createServer((req,res)=>{
 server.listen(PORT,()=>{
 	console.log(`Server running on ${PORT}/`);
 });
-update();
 setInterval(()=>{
 	var url1='https://asimo3089.herokuapp.com/';
 	var url2='https://asimo3089-tracker.herokuapp.com/';
@@ -159,3 +146,4 @@ setInterval(()=>{
 	update();
 },69000);
 */
+update();

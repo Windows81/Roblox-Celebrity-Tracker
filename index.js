@@ -93,13 +93,12 @@ async function getPlayersOnline(players,places){
 				if(!e){
 					var pp=JSON.parse(b).PlayerPresences[0];
 					a.push([p,pp.PlaceId>0?pp.PlaceId:pp.InGame?undefined:null]);
-					console.log(a.length,players.length);
 					if(a.length==players.length)res(a);
 				}
 			});
 		});
 	});
-	console.log(all);
+	
 	var filtered=[];
 	all.forEach(p=>{
 		if(p[1]!==null)filtered.push(p[0]);
@@ -116,6 +115,7 @@ async function getPlayersOnline(players,places){
 		var a=[];
 		for(var c=0;c<places.length;c++){
 			var place=places[c];
+			console.log(c,place);
 			var hashable=filtered.slice(0);
 			var results=await playersInPlace(filtered,place);
 			results.forEach(t=>{

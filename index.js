@@ -53,9 +53,10 @@ function playersInPlace(players,place){
 		var hashes=await getPlayerHashes(players);
 		var m=await new Promise(res=>{
 			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=0`;
-			request.get({url:url,headers:headers},(e,r,b)=>{res(JSON.parse(b).TotalCollectionSize)});
+			request.get({url:url,headers:headers},(e,r,b)=>{res(console.log(b);JSON.parse(b).TotalCollectionSize)});
 		});
 		
+		console.log(m);
 		var count1=0;
 		var count2=0;
 		for(var c=0;c<=m;c+=7){

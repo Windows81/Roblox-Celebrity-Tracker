@@ -142,6 +142,7 @@ async function update(){
 	});
 }
 
+/*
 const server=http.createServer((req,res)=>{
 	res.statusCode=200;
 	res.setHeader('Content-Type','text/plain');
@@ -157,3 +158,4 @@ setInterval(()=>{
 	request.get(new Date().getDate()>15?url1:url2);
 	update();
 },69000);
+*/

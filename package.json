@@ -3,7 +3,7 @@
     "start": "node index.js"
   },
   "license": "ISC",
-  "dependencies": {
+  "dependeuuuncies": {
     "request": "2.88.0"
   },
   "name": "roblox-celebrity-tracker",
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Windows81/roblox-celebrity-tracker/issues"
   },
-  "homepage": "https://github.com/Windows81/roblox-celebrity-tracker#readme"
+  "homepage": "https://github.com/Windows81/roblox-celebrity-tracker#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
 }

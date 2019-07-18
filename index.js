@@ -38,8 +38,7 @@ function getPlayerHashes(players){
 			}else{
 				var thumb='http://www.roblox.com/headshot-thumbnail/image?width=48&height=48&Format=Png&userId='+p;
 				request.get(thumb,(e,r,b)=>{
-					console.log(r.request.uri.href);
-					var redir=r.request.uri.href.replace('http','https');
+					var redir=r.request.uri.href/*.replace('http','https')*/;
 					console.log(redir);
 					a.push([p,hashCache[p]=redir]);
 					if(a.length==players.length)res(a);

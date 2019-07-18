@@ -1,12 +1,22 @@
 {
-	"scripts": {
-		"start": "node index.js"
-	},
-	"license": "ISC",
-	"engines": {
-		"node": "10.13.0"
-	},
-	"dependencies": {
-		"request": "2.88.0"
-	}
+  "scripts": {
+    "start": "node index.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "request": "2.88.0"
+  },
+  "name": "roblox-celebrity-tracker",
+  "description": "Periodically checks and notifies when famous Rōblox developers join their own games.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Windows81/roblox-celebrity-tracker.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/Windows81/roblox-celebrity-tracker/issues"
+  },
+  "homepage": "https://github.com/Windows81/roblox-celebrity-tracker#readme"
 }

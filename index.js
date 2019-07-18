@@ -38,8 +38,9 @@ function getPlayerHashes(players){
 			}else{
 				var thumb='http://www.roblox.com/headshot-thumbnail/image?width=48&height=48&Format=Png&userId='+p;
 				request.get(thumb,(e,r,b)=>{
-					console.log(r.request.uri);
+					console.log(r.request.uri.href);
 					var redir=r.request.uri.href.replace('http','https');
+					console.log(redir);
 					a.push([p,hashCache[p]=redir]);
 					if(a.length==players.length)res(a);
 				});
@@ -116,7 +117,6 @@ async function getPlayersOnline(players,places){
 		var a=[];
 		for(var c=0;c<places.length;c++){
 			var place=places[c];
-			console.log(place);
 			var hashable=filtered.slice(0);
 			var results=await playersInPlace(filtered,place);
 			results.forEach(t=>{

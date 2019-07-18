@@ -39,6 +39,7 @@ function getPlayerHashes(players){
 				var thumb='http://www.roblox.com/headshot-thumbnail/image?width=48&height=48&Format=Png&userId='+p;
 				request.get(thumb,(e,r,b)=>{
 					var redir=r.request.uri.href.replace('http','https');
+					console.log(redir);
 					a.push([p,hashCache[p]=redir]);
 					if(a.length==players.length)res(a);
 				});
@@ -53,10 +54,9 @@ function playersInPlace(players,place){
 		var hashes=await getPlayerHashes(players);
 		var m=await new Promise(res=>{
 			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=0`;
-			request.get({url:url,headers:headers},(e,r,b)=>{console.log(b);res(JSON.parse(b).TotalCollectionSize)});
+			request.get({url:url,headers:headers},(e,r,b)=>{res(JSON.parse(b).TotalCollectionSize)});
 		});
 		
-		console.log(m);
 		var count1=0;
 		var count2=0;
 		for(var c=0;c<=m;c+=7){

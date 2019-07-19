@@ -2,7 +2,6 @@
 const fs=require('fs');
 const request=require('request');
 require('dotenv').config();
-const PORT=process.env.PORT||5000;
 var headers={Cookie:'.ROBLOSECURITY='+process.env.roblosecurity};
 
 const players=process.env.Players.split(' ');
@@ -87,6 +86,7 @@ async function getPlayersOnline(players,places){
 		});
 	});
 	
+	console.log(all);
 	var filtered=[];
 	all.forEach(p=>{
 		if(p[1]!==null)filtered.push(p[0]);
@@ -106,7 +106,6 @@ async function getPlayersOnline(players,places){
 			var hashable=filtered.slice(0);
 			var results=await playersInPlace(filtered,place);
 			results.forEach(t=>{
-				console.log(t[0]);
 				var i=filtered.indexOf(t[0]);
 				if(i>-1)filtered.splice(i,1);
 				request.get(`https://api.roblox.com/users/${t[0]}`,(e,r,b)=>{
@@ -115,10 +114,11 @@ async function getPlayersOnline(players,places){
 				});
 			});
 		}
+		res([]);
 	});
 }
 
-async function update(){
+function update(){
 	var url='https://discordapp.com/api/webhooks/569744093115318274'
 		+'/wM4ULEq-De_E_xDWzmwEdvcHjCGqtg9gVheZdAbiPxRkrFFAXQGsU-voL3JrGfNZrVSE';
 	getPlayersOnline(players,places).then(a=>{
@@ -127,6 +127,7 @@ async function update(){
 			var content=`\`\`\`js\n// User: ${v[0]} - ${v[1]}\nRoblox.GameLauncher.joinGameInstance(${v[2]},"${v[3]}")\`\`\``;
 			request.post({url:url,json:{content:content}});
 		});
+		process.exit(0);
 	});
 }
 

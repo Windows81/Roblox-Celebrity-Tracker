@@ -3,9 +3,6 @@
     "start": "node index.js"
   },
   "license": "ISC",
-  "dependeuuuncies": {
-    "request": "2.88.0"
-  },
   "name": "roblox-celebrity-tracker",
   "description": "Periodically checks and notifies when famous Rōblox developers join their own games.",
   "version": "1.0.0",

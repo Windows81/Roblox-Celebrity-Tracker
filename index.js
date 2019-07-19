@@ -2,7 +2,7 @@
 const fs=require('fs');
 const request=require('request');
 require('dotenv').config();
-var headers={Cookie:'.ROBLOSECURITY='+process.env.roblosecurity};
+const headers={Cookie:'.ROBLOSECURITY='+process.env.roblosecurity};
 
 const players=process.env.Players.split(' ');
 const places=process.env.Places.split(' ');
@@ -10,6 +10,7 @@ const places=process.env.Places.split(' ');
 var hashCache=[];
 function getPlayerHashes(players){
 	return new Promise(res=>{
+		if(players.length<1)res([]);
 		var a=[];players.forEach(p=>{
 			if(hashCache[p]!=null){
 				a.push([p,hashCache[p]]);
@@ -24,7 +25,6 @@ function getPlayerHashes(players){
 				});
 			}
 		});
-		res([]);
 	});
 }
 
@@ -86,6 +86,8 @@ async function getPlayersOnline(players,places){
 		});
 	});
 	
+	console.log('');
+	console.log(new Date().toISOString());
 	console.log(all);
 	var filtered=[];
 	all.forEach(p=>{
@@ -102,19 +104,20 @@ async function getPlayersOnline(players,places){
 	return await new Promise(async res=>{
 		var a=[];
 		for(var c=0;c<places.length;c++){
-			var place=places[c];
-			var hashable=filtered.slice(0);
-			var results=await playersInPlace(filtered,place);
+			const place=places[c];
+			const results=await playersInPlace(filtered,place);
 			results.forEach(t=>{
 				var i=filtered.indexOf(t[0]);
 				if(i>-1)filtered.splice(i,1);
 				request.get(`https://api.roblox.com/users/${t[0]}`,(e,r,b)=>{
-					t.unshift(JSON.parse(b).Username);a.push(t);
-					if(a.length==results.length)res(a);
+					t.unshift(JSON.parse(b).Username);
+					if(a.length+1!=results.length)return;
+					a.push(t);
+					console.log(t);
+					res(a);
 				});
 			});
 		}
-		res([]);
 	});
 }
 
@@ -125,9 +128,8 @@ function update(){
 		a.forEach(v=>{
 			if(!v[2])return;
 			var content=`\`\`\`js\n// User: ${v[0]} - ${v[1]}\nRoblox.GameLauncher.joinGameInstance(${v[2]},"${v[3]}")\`\`\``;
-			request.post({url:url,json:{content:content}});
+			request.post({url:url,json:{content:content}},()=>process.exit(0));
 		});
-		process.exit(0);
 	});
 }
 
@@ -147,4 +149,6 @@ setInterval(()=>{
 	update();
 },69000);
 */
+
+setInterval(update,69000);
 update();

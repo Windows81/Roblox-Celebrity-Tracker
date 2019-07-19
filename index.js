@@ -19,7 +19,6 @@ function getPlayerHashes(players){
 				var thumb='http://www.roblox.com/headshot-thumbnail/image?width=48&height=48&Format=Png&userId='+p;
 				request.get(thumb,(e,r,b)=>{
 					var redir=r.request.uri.href/*.replace('http','https')*/;
-					console.log(p,redir);
 					a.push([p,hashCache[p]=redir]);
 					if(a.length==players.length)res(a);
 				});
@@ -128,7 +127,7 @@ function update(){
 		a.forEach(v=>{
 			if(!v[2])return;
 			var content=`\`\`\`js\n// User: ${v[0]} - ${v[1]}\nRoblox.GameLauncher.joinGameInstance(${v[2]},"${v[3]}")\`\`\``;
-			request.post({url:url,json:{content:content}},()=>process.exit(0));
+			request.post({url:url,json:{content:content}},()=>console.log(v[0],v[1],`Roblox.GameLauncher.joinGameInstance(${v[2]},"${v[3]}")`));
 		});
 	});
 }

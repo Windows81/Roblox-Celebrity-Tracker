@@ -3,6 +3,7 @@ const fs=require('fs');
 const request=require('request');
 require('dotenv').config();
 const headers={Cookie:'.ROBLOSECURITY='+process.env.roblosecurity};
+const url=process.env.discordWebhook
 
 const players=process.env.Players.split(' ');
 const places=process.env.Places.split(' ');
@@ -78,7 +79,7 @@ async function getPlayersOnline(players,places){
 			request.get({url:url,headers:headers},(e,r,b)=>{
 				if(!e){
 					var pp=JSON.parse(b).PlayerPresences[0];
-					a.push([p,pp.PlaceId>0?pp.PlaceId:pp.InGame?undefined:null]);
+					a.push([p,pp.InGame?pp.PlaceId>0?pp.PlaceId:undefined:null]);
 					if(a.length==players.length)res(a);
 				}
 			});
@@ -112,7 +113,6 @@ async function getPlayersOnline(players,places){
 					t.unshift(JSON.parse(b).Username);
 					if(a.length+1!=results.length)return;
 					a.push(t);
-					console.log(t);
 					res(a);
 				});
 			});
@@ -121,8 +121,6 @@ async function getPlayersOnline(players,places){
 }
 
 function update(){
-	var url='https://discordapp.com/api/webhooks/569744093115318274'
-		+'/wM4ULEq-De_E_xDWzmwEdvcHjCGqtg9gVheZdAbiPxRkrFFAXQGsU-voL3JrGfNZrVSE';
 	getPlayersOnline(players,places).then(a=>{
 		a.forEach(v=>{
 			if(!v[2])return;

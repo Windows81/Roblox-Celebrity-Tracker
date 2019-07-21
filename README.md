@@ -10,5 +10,6 @@ Periodically checks and notifies when famous Rōblox developers join their own g
 ```xml
 roblosecurity=_|WARNING:-DO-NOT-SHARE-THIS...
 Players=2837719 1630228 123247 306209 1912490 339310190 59967
-Places=527730528 69184822 920587237 292439477 735030788
+Places=1818 527730528 69184822 920587237 292439477 735030788
+discordWebhook=https://discordapp.com/api/webhooks/XXX/XXX
 ```

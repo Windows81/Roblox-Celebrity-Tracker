@@ -3,7 +3,7 @@ const fs=require('fs');
 const request=require('request');
 require('dotenv').config();
 const headers={Cookie:'.ROBLOSECURITY='+process.env.roblosecurity};
-const url=process.env.discordWebhook
+const wUrl=process.env.discordWebhook
 
 const players=process.env.Players.split(' ');
 const places=process.env.Places.split(' ');
@@ -125,7 +125,8 @@ function update(){
 		a.forEach(v=>{
 			if(!v[2])return;
 			var content=`\`\`\`js\n// User: ${v[0]} - ${v[1]}\nRoblox.GameLauncher.joinGameInstance(${v[2]},"${v[3]}")\`\`\``;
-			request.post({url:url,json:{content:content}},()=>console.log(v[0],v[1],`Roblox.GameLauncher.joinGameInstance(${v[2]},"${v[3]}")`));
+			console.log(v[0],v[1],`Roblox.GameLauncher.joinGameInstance(${v[2]},"${v[3]}")`);
+			if(wUrl)request.post({url:wUrl,json:{content:content}});
 		});
 	});
 }

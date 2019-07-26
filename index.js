@@ -37,7 +37,7 @@ function playersInPlace(players,place){
 		var m=await new Promise(res=>{
 			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=0`;
 			request.get({url:url,headers:headers},(e,r,b)=>{
-				res(JSON.parse(b).TotalCollectionSize)});
+				if(!e)res(JSON.parse(b).TotalCollectionSize)});
 		});
 		
 		var count1=0;
@@ -47,7 +47,7 @@ function playersInPlace(players,place){
 			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=${c}`;
 			var rec=()=>{
 				request.get({url:url,headers:headers},(e,r,b)=>{
-					if(e)return rec();
+					if(e||b[0]!='{')return setTimeout(rec,6660);
 					count2++;
 					var t=JSON.parse(b);
 					m=Math.max(t.TotalCollectionSize,m);

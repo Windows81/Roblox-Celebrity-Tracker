@@ -3,10 +3,12 @@ Periodically checks and notifies when famous Rōblox developers join their own g
 
 # To use the app
 1. Clone this repository.
-2. Open Node.JS.
-3. Install the required dependencies.
-4. Create an `.env` file.
-5. Include a `.ROBLOSECURITY` cookie string and a space-delimited list of place IDs and player IDs to track.
+2. Install and open Node.JS.
+3. Install the required dependencies by executing `npm install` on the Node.JS console.
+4. Create a file named `.env` and copy the example text below.
+5. Modify `roblosecurity` to include your `.ROBLOSECURITY` cookie.
+*`discordWebhook` is optional.*
+---
 ```xml
 roblosecurity=_|WARNING:-DO-NOT-SHARE-THIS...
 Players=2837719 1630228 123247 306209 1912490 339310190 59967

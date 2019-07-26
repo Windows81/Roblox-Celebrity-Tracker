@@ -6,8 +6,7 @@ Periodically checks and notifies when famous Rōblox developers join their own g
 2. Install and open Node.JS.
 3. Install the required dependencies by executing `npm install` on the Node.JS console.
 4. Create a file named `.env` and copy the example text below.
-5. Modify `roblosecurity` to include your `.ROBLOSECURITY` cookie.
-*`discordWebhook` is optional.*
+5. Modify `roblosecurity` to include your `.ROBLOSECURITY` cookie.  *`discordWebhook` is optional.*
 ---
 ```xml
 roblosecurity=_|WARNING:-DO-NOT-SHARE-THIS...

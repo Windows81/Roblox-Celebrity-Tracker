@@ -37,7 +37,7 @@ function playersInPlace(players,place){
 		var m=await new Promise(res=>{
 			var url=`https://www.roblox.com/games/getgameinstancesjson?placeId=${place}&startIndex=0`;
 			request.get({url:url,headers:headers},(e,r,b)=>{
-				if(!e)res(JSON.parse(b).TotalCollectionSize)});
+				if(!e&&b[0]=='{')res(JSON.parse(b).TotalCollectionSize)});
 		});
 		
 		var count1=0;
@@ -77,7 +77,7 @@ async function getPlayersOnline(players,places){
 		players.forEach(p=>{
 			var url='https://www.roblox.com/search/users/presence?userIds='+p;
 			request.get({url:url,headers:headers},(e,r,b)=>{
-				if(!e){
+				if(!e&&b[0]=='{'){
 					var pp=JSON.parse(b).PlayerPresences[0];
 					a.push([p,pp.InGame?pp.PlaceId>0?pp.PlaceId:undefined:null]);
 					if(a.length==players.length)res(a);
@@ -110,10 +110,12 @@ async function getPlayersOnline(players,places){
 				var i=filtered.indexOf(t[0]);
 				if(i>-1)filtered.splice(i,1);
 				request.get(`https://api.roblox.com/users/${t[0]}`,(e,r,b)=>{
-					t.unshift(JSON.parse(b).Username);
-					if(a.length+1!=results.length)return;
-					a.push(t);
-					res(a);
+					if(!e&&b[0]=='{'){
+						t.unshift(JSON.parse(b).Username);
+						if(a.length+1!=results.length)return;
+						a.push(t);
+						res(a);
+					}
 				});
 			});
 		}

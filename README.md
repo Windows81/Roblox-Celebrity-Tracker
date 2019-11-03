@@ -1,7 +1,7 @@
 # roblox-celebrity-tracker
 Periodically checks and notifies when famous Rōblox developers join their own games.
 
-# To use the app
+### usäge-insstructions
 1. Clone this repository.
 2. Install and open Node.JS.
 3. Install the required dependencies by executing `npm install` on the Node.JS console.
